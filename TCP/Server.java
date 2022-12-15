@@ -23,7 +23,7 @@ public class Server {
                         "\n\t\t- 3. EXIT                  -" +
                         "\n\t\t-----------------------------------------------" +
                         "\n\t\tMoi chon:";
-                String res = "Nhap chuoi can xu ly";
+                String res = "Nhap chuoi can xu ly: ";
                 do {
                     dos.writeUTF(menu);// Gửi MENU cho Client
                     String dataFromClient = dis.readUTF();

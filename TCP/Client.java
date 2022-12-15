@@ -25,7 +25,7 @@ public class Client {
                 String luachon = sc.nextLine();
                 dos.writeUTF(luachon);//gửi lựa chọn lên Server
 
-                System.out.println(dis.readUTF());//Nhận phản hồi yêu cầu nhập chuỗi
+                System.out.print(dis.readUTF());//Nhận phản hồi yêu cầu nhập chuỗi
                 String str1 = sc.nextLine();
                 dos.writeUTF(str1);//Gửi chuỗi cần xử lý lên Server
 
