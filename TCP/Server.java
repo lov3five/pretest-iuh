@@ -16,30 +16,44 @@ public class Server {
                 System.out.println("Client " + s.getPort() + " connected");// Thông báo client kết nối
                 DataInputStream dis = new DataInputStream(s.getInputStream());
                 DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-
-                /*
-                 * String str = "TranThanhLuong";
-                 * String arrStr[] = str.split(str);//chuyển chuỗi thành mảng
-                 */
-
-                while (true) {
-
-                    for(int i = 0; i <= 10; i++){
-                        dos.writeUTF(String.valueOf(i));
-                        Thread.sleep(500);
-                    }
+                // MENU
+                String menu = "\t-------------------MENU------------------------" +
+                        "\n\t\t- 1. Chuyen chu thuong thanh chu in hoa     -" +
+                        "\n\t\t- 2. In hoa ky tu dau. VD(tran thanh luong -> Tran Thanh Luong) -" +
+                        "\n\t\t- 3. EXIT                  -" +
+                        "\n\t\t-----------------------------------------------" +
+                        "\n\t\tMoi chon:";
+                String res = "Nhap chuoi can xu ly";
+                do {
+                    dos.writeUTF(menu);// Gửi MENU cho Client
                     String dataFromClient = dis.readUTF();
-                    if (dataFromClient.equals("exit")) {
-                        System.out.println("Client " + s.getPort() + " disconnect!!!");
+                    int luachon = Integer.parseInt(dataFromClient);
+                    switch (luachon) {
+                        case 1:
+                            System.out.println("Client " + s.getPort() + " da chon phuong thuc: " + luachon);
+                            dos.writeUTF(res);// Gui response cho client
+                            String str1 = dis.readUTF();// Chuỗi cần xử lý
+                            dos.writeUTF("Chuoi da xu ly: " + str1.toUpperCase());
+                            break;
+                        case 2:
+                            System.out.println("Client " + s.getPort() + " da chon phuong thuc: " + luachon);
+                            dos.writeUTF(res);// Gui response cho client
+                            String str2 = dis.readUTF();// Chuỗi cần xử lý
+                            str2 = str2.trim().replaceAll("\\s+", " ").toLowerCase();// format chuỗi thành chữ thường và
+                                                                                     // // xóa khoảng trắng
+                            String arrStr2[] = str2.split(" ");// Chuyển chuỗi thành mảng
+                            String kq = "";
+                            for (int i = 0; i < arrStr2.length; i++) {
+                                kq += arrStr2[i].substring(0, 1).toUpperCase() + arrStr2[i].substring(1) + " ";
+                            }
+                            dos.writeUTF("Chuoi da xu ly: " + kq);
+                            break;
+                        case 3:
+                            System.out.println("Client " + s.getPort() + " da chon phuong thuc: " + luachon);
+                            System.out.println("Client " + s.getPort() + " disconnect!!!");
+                            s.close();
                     }
-                }
-                /*
-                 * dis.close();
-                 * dos.close();
-                 * ss.close();
-                 * s.close();
-                 */
-
+                } while (true);
             }
 
         } catch (
